@@ -8,7 +8,6 @@ export function addUser(payload) {
 }
 
 export function deleteUser(id) {
-  console.log('id', id);
   return {
     type: DELETE_USER,
     id,
@@ -39,7 +38,6 @@ export function fetchUsers() {
     return fetch('https://jsonplaceholder.typicode.com/users')
       .then(res => res.json(), err => {
         dispatch(requestUsersFailed())
-        console.log('err', err)
       })
       .then(json => dispatch(receiveUsers(json)));
   }
