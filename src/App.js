@@ -1,16 +1,28 @@
-import React from 'react';
-import { Counter } from './features/counter/Counter';
+import React, { useEffect } from 'react';
 import './App.css';
+import { connect } from 'react-redux';
+import { fetchUsers } from './app/core/actions';
 
-function App() {
+function App({ fetchUsers, users }) {
+
+  useEffect(() => {
+    fetchUsers()
+  }, [fetchUsers])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <Counter />
-
-      </header>
+    <div>
+      <h1>Titre</h1>
+      <ul>
+        {users.map(u => (
+          <li key={u.id}>{u.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return { users: state.users }
+}
+
+export default connect(mapStateToProps, { fetchUsers })(App);
