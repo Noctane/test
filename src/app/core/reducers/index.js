@@ -24,18 +24,24 @@ function rootReducer(state =  initialState, action) {
       })
     }
     case ADD_USER: {
-      const { name, address, company, email, phone, username, website } = action.payload;
+      const { name, street, city, company, email, phone, username, website } = action.payload;
       const newUser = {
         id: Date.now(),
         name,
-        address,
-        company,
+        address: {
+          street,
+          city,
+        },
+        company: {
+          name: company,
+        },
         email,
         phone,
         username,
         website,
       }
       return {
+        ...state,
         users: [...state.users, newUser]
       };
     }

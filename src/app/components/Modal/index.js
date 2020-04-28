@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Modal({ isOpened, toggleModal, children }) {
+function Modal({ isOpened, toggleModal, children, onClickBtn }) {
   return (
     <div className={`modal fade${isOpened ? ' show' : ''}`} style={{ display: isOpened ? 'block' : 'none' }} id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog" role="document">
@@ -17,7 +17,7 @@ function Modal({ isOpened, toggleModal, children }) {
           </div>
           <div className="modal-footer">
             <button type="button"  onClick={toggleModal} className="btn btn-secondary" data-dismiss="modal">Annuler</button>
-            <button type="button" className="btn btn-primary">Enregistrer</button>
+            <button type="button" onClick={onClickBtn} className="btn btn-primary">Enregistrer</button>
           </div>
         </div>
       </div>
@@ -28,6 +28,7 @@ function Modal({ isOpened, toggleModal, children }) {
 Modal.propTypes = {
   isOpened: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
+  onClickBtn: PropTypes.func.isRequired,
 }
 
 export default Modal;

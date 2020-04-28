@@ -16,7 +16,6 @@ function App({ fetchUsers, users, status, addUser, deleteUser }) {
   const [isOpened, setIsOpened] = useState(false);
   const [newUser, setNewUser] = useState({});
 
-
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
@@ -45,11 +44,20 @@ function App({ fetchUsers, users, status, addUser, deleteUser }) {
   }
 
   const onInputChange = (e) => {
-    console.log('e.target.name, e.target.value', e.target.name, e.target.value);
+    setNewUser({
+      ...newUser,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const onClickSave = () => {
+    addUser(newUser);
+    toggleModal();
   }
 
   const toggleModal = () => {
     setIsOpened(isOpened => !isOpened)
+    setNewUser({});
   }
 
   if (status === 'idle') {
@@ -86,7 +94,7 @@ function App({ fetchUsers, users, status, addUser, deleteUser }) {
           ))}
         </ul>
 
-        <Modal isOpened={isOpened} toggleModal={toggleModal}>
+        <Modal isOpened={isOpened} toggleModal={toggleModal} onClickBtn={onClickSave}>
           <form>
             <div className="form-row">
               <div className="form-group col-md-6">
@@ -99,8 +107,12 @@ function App({ fetchUsers, users, status, addUser, deleteUser }) {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="address">Adresse</label>
-              <input onChange={onInputChange} type="text" className="form-control" name="address" placeholder="1234 Main St"/>
+              <label htmlFor="street">Adresse</label>
+              <input onChange={onInputChange} type="text" className="form-control" name="street" placeholder="1234 Main St"/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="city">Ville</label>
+              <input onChange={onInputChange} type="text" className="form-control" name="city" placeholder="Toulouse"/>
             </div>
             <div className="form-group">
               <label htmlFor="company">Compagnie</label>
